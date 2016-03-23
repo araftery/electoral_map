@@ -1,0 +1,163 @@
+.state {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 1.5;
+    shape-rendering: crispEdges;
+  }
+  .state:hover{
+    fill-opacity:0.75;
+  }
+  #tooltip {   
+    position: absolute;           
+    text-align: center;
+    padding: 20px;             
+    margin: 10px;
+    font: 12px sans-serif;        
+    background: lightsteelblue;   
+    border: 1px;      
+    border-radius: 2px;           
+    pointer-events: none;         
+  }
+  #tooltip h4{
+    margin:0;
+    font-size:14px;
+  }
+  #tooltip{
+    background: rgba(0,0,0,0.9);
+    border: 1px solid grey;
+    border-radius: 5px;
+    font-size: 12px;
+    width: auto;
+    padding: 4px;
+    color: white;
+    opacity: 0;
+  }
+  #tooltip table{
+    table-layout: fixed;
+  }
+  #tooltip tr td{
+    padding: 0;
+    margin: 0;
+  }
+  #tooltip tr td:nth-child(1){
+    width: 75px;
+  }
+  #tooltip tr td:nth-child(2){
+    text-align: center;
+    width: 50px;
+  }
+
+  #tooltip {
+    z-index: 1000;
+  }
+
+
+
+  /* MY CSS */
+  .pct_col
+  {
+      width: 10%;
+      font-size: 10px;
+      vertical-align: middle;
+  }
+
+  .grp_pct_col
+  {
+    font-size: 9px;
+  }
+
+  .slider_title
+  {
+    text-align: center;
+    font-size: 10px;
+  }
+
+  .slider_col
+  {
+      width: 80%;
+  }
+
+  .slider_table
+  {
+      table-layout:fixed;
+      width: 100%;
+  }
+
+  .slider_table td
+  {
+      overflow: hidden;
+      text-align: center;
+      vertical-align: middle;
+      position: relative;
+  }
+
+  .electoral_bar_container
+  {
+    margin-bottom: 20px;
+    width: 100%;
+    border: 1px solid #fff;
+    height: 30px;
+    position: relative;
+
+  }
+
+  .electoral_bar
+  {
+    height: 100%;
+    line-height: 30px;
+    float:left;
+    text-align: center;
+    color: #fff;
+    font-weight:bold;
+  }
+
+  .dem_electoral_bar
+  {
+    background-color: #40698b;
+    width: 40%;
+  }
+
+  .rep_electoral_bar
+  {
+    background-color: #af3a3a;
+    width: 40%;
+  }
+
+  .neut_electoral_bar
+  {
+    background-color: #c9b291;
+    width: 20%;
+  }
+
+  .marker-270
+  {
+    width: 50.1858736%;
+    border-right: 4px solid #fff;
+    position: absolute;
+    height: 30px;
+  }
+
+  .historical-table
+  {
+    font-size: 12px;
+    margin-top: 10px;
+  }
+
+  #bar-chart
+  {
+    height: 200px;
+  }
+
+  .adjustment-btn-container
+  {
+    margin-top: 10px;
+  }
+  .historical-table tr:first-child
+  {
+    background-color: rgb(249, 249, 249);
+  }
+
+  .navbar
+  {
+    margin-bottom: 30px;
+  }

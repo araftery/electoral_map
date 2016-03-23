@@ -1,0 +1,106 @@
+/* Ion.RangeSlider, Flat UI Skin
+// css version 2.0.3
+// © Denis Ineshin, 2014    https://github.com/IonDen
+// ===================================================================================================================*/
+
+/* =====================================================================================================================
+// Skin details */
+
+.neutral-slider .irs-line-mid,
+.neutral-slider .irs-line-left,
+.neutral-slider .irs-line-right,
+.neutral-slider .irs-bar,
+.neutral-slider .irs-bar-edge,
+.neutral-slider .irs-slider {
+    background: url(../img/sprite-skin-flat-neutral.png) repeat-x;
+}
+
+.neutral-slider .irs {
+    height: 40px;
+}
+.neutral-slider .irs-with-grid {
+    height: 60px;
+}
+.neutral-slider .irs-line {
+    height: 12px; top: 25px;
+}
+    .neutral-slider .irs-line-left {
+        height: 12px;
+        background-position: 0 -30px;
+    }
+    .neutral-slider .irs-line-mid {
+        height: 12px;
+        background-position: 0 0;
+    }
+    .neutral-slider .irs-line-right {
+        height: 12px;
+        background-position: 100% -30px;
+    }
+
+.neutral-slider .irs-bar {
+    height: 12px; top: 25px;
+    background-position: 0 -60px;
+}
+    .neutral-slider .irs-bar-edge {
+        top: 25px;
+        height: 12px; width: 9px;
+        background-position: 0 -90px;
+    }
+
+.neutral-slider .irs-shadow {
+    height: 3px; top: 34px;
+    background: #000;
+    opacity: 0.25;
+}
+.neutral-slider .lt-ie9 .irs-shadow {
+    filter: alpha(opacity=25);
+}
+
+.neutral-slider .irs-slider {
+    width: 16px; height: 18px;
+    top: 22px;
+    background-position: 0 -120px;
+}
+.neutral-slider .irs-slider.state_hover, .irs-slider:hover {
+    background-position: 0 -150px;
+}
+
+.neutral-slider .irs-min, .neutral-slider .irs-max {
+    color: #999;
+    font-size: 10px; line-height: 1.333;
+    text-shadow: none;
+    top: 0; padding: 1px 3px;
+    background: #e1e4e9;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.neutral-slider .irs-from, .neutral-slider .irs-to, .neutral-slider .irs-single {
+    color: #fff;
+    font-size: 10px; line-height: 1.333;
+    text-shadow: none;
+    padding: 1px 5px;
+    background: #ed5565;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+.neutral-slider .irs-from:after, .neutral-slider .irs-to:after, .neutral-slider .irs-single:after {
+    position: absolute; display: block; content: "";
+    bottom: -6px; left: 50%;
+    width: 0; height: 0;
+    margin-left: -3px;
+    overflow: hidden;
+    border: 3px solid transparent;
+    border-top-color: #ed5565;
+}
+
+
+.neutral-slider .irs-grid-pol {
+    background: #e1e4e9;
+}
+.neutral-slider .irs-grid-text {
+    color: #999;
+}
+
+.neutral-slider .irs-disabled {
+}
