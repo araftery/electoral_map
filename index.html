@@ -6,6 +6,8 @@
   <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" />
   <link rel="stylesheet" href="lib/c3/c3.min.css" />
   <link rel="stylesheet" href="map.css" />
+
+  <title>Electoral Map: 2016 Election by Demographic Group and State</title>
 <body>
 
 <nav class="navbar navbar-light bg-faded">
@@ -59,12 +61,16 @@
     <select class="vote-adjustment-btn-group-select adjustment-btn-group-select" data-attr="vote">
       </select>
       <select class="vote-adjustment-btn-amount-select adjustment-btn-amount-select" data-attr="vote">
+        <option value=".05">+5%</option>
+        <option value=".04">+4%</option>
         <option value=".03">+3%</option>
         <option value=".02">+2%</option>
         <option value=".01" selected>+1%</option>
         <option value="-.01">-1%</option>
         <option value="-.02">-2%</option>
         <option value="-.03">-3%</option>
+        <option value="-.04">-4%</option>
+        <option value="-.05">-5%</option>
       </select>
       <a href="#" class="btn btn-primary-outline vote-adjustment-btn adjustment-btn" data-attr="vote"><span class="vote-adjustment-btn-group-label adjustment-btn-group-label" data-attr="vote">White</span> Dem. Vote Pct. <span class="vote-adjustment-btn-amount-label adjustment-btn-amount-label" data-attr="vote">+1%</span></a>
     </div>
