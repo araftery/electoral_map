@@ -772,7 +772,7 @@ YII=
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We find that a simple linear regression estimates the VEP at 2% higher than Byler's estimate. While this is a bit high, it is tolerable, and likely due to the fact that Byler adjusts the VEP to make other (perhaps more important) numbers work. Therefore, it is plausible that Byler's adjusted estimate is actually more reliable than a simple linear regression prediction.</p>
-<p>In order to sanity-check the data, let's compare its predictions for the 2012 election to the actual results. Since the data is simply 2012 turnout and voteshare and 2016 VEP, we will just replace the 2016 VEP with the known 2012 VEP, and multiply out to get vote-share per-state, and compare this to the real results (obtained from <a href="https://www.archives.gov/federal-register/electoral-college/2012/popular-vote.html">archive.org</a>). Note that there are slight adjustments to re-weight totals, since our model ignores third-party candidates.</p>
+<p>In order to sanity-check the data, let's compare its predictions for the 2012 election to the actual results. Since the data is simply 2012 turnout and voteshare and 2012 VEP plus a growth rate, we can calculate each state's Democratic vote share and compare to the real 2012 results (obtained from <a href="https://www.archives.gov/federal-register/electoral-college/2012/popular-vote.html">archive.org</a>). Note that there are slight adjustments to re-weight totals, since our model ignores third-party candidates.</p>
 
 </div>
 </div>
