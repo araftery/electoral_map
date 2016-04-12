@@ -16,8 +16,14 @@ var bar_chart = null;
 function format_pct(pct)
 {
   // TODO: pretty sure the decimal thing is buggy but w/e
-  var decimals = 0;
-  return Math.round(pct * Math.pow(10, decimals + 2)) / Math.pow(10, decimals) + '%';
+  var decimals = 1;
+  var num  = Math.round(pct * Math.pow(10, decimals + 2)) / Math.pow(10, decimals);
+  if (String(num).indexOf('.') == -1)
+  {
+    num += '.0';
+  }
+
+  return num;
 }
 
 
@@ -367,7 +373,8 @@ function calculate_usa_total(year)
 
 function classify_state(dem_pct)
 {
-  var strong_cutoff = .56;
+  // change to .50 to .51 really light blue (no beige)
+  var strong_cutoff = .55;
   var weak_cutoff = .51;
 
   if (dem_pct > strong_cutoff)
@@ -397,7 +404,7 @@ function classify_state(dem_pct)
       var group = clean_group_name(group_name);
 
       var html = "<div class='col-lg-6'>";
-      html += '<h3>' + group + '</h3>';
+      html += '<table style="width:100%;"><tr><td><h3>' + group + '</h3></td><td style="text-align:right;"><h3><a href="#" class="btn btn-primary-outline group-reset-btn" data-group="' + group + '"><i class="icon-undo"></i></a></h3></td></tr></table>';
       html += '\
                     <div class="slider-container ' + group + '-state-vote-slider-container"> \
                     <table class="slider_table"> \
@@ -422,7 +429,7 @@ function classify_state(dem_pct)
                     </table> \
                     <table class="table historical-table ' + group + '-table"> \
                       <tr><th></th><th>2012</th><th>2016</th></tr> \
-                      <tr class="dem_pct_row"><td>Dem Pct.</td><td class="year_2012">51%</td><td class="year_2016">52%</td></tr> \
+                      <tr class="dem_pct_row"><td>Dem %</td><td class="year_2012">51%</td><td class="year_2016">52%</td></tr> \
                       <tr class="turnout_pct_row"><td>Turnout</td><td class="year_2012">51%</td><td class="year_2016">52%</td></tr> \
                     </table> \
                   </div> \
@@ -434,12 +441,12 @@ function classify_state(dem_pct)
     });
 
   // initialize state group sliders
-  $(".state-info-body .slider.vote_slider").ionRangeSlider({
+  $(".slider.vote_slider").ionRangeSlider({
       hide_min_max: true,
       keyboard: false,
       min: 0,
       max: 1,
-      step: .01,
+      step: .001,
       hide_from_to: true,
       prettify_enabled: true,
       onChange: function(data) {
@@ -463,12 +470,12 @@ function classify_state(dem_pct)
       },
   });
 
-  $(".state-info-body .slider.turnout_slider").ionRangeSlider({
+  $(".slider.turnout_slider").ionRangeSlider({
       hide_min_max: true,
       keyboard: false,
       min: 0,
       max: 1,
-      step: .01,
+      step: .001,
       hide_from_to: true,
       prettify_enabled: true,
       onChange: function(data) {
@@ -485,9 +492,6 @@ function classify_state(dem_pct)
 
           update_map(false);
           update_tables();
-      },
-      onFinish: function(data) {
-        console.log(data);
       },
       prettify: function (num) {
           return format_pct(num);
@@ -551,7 +555,7 @@ function classify_state(dem_pct)
       axis: {
         x: {
             type: 'category',
-            categories: ['VEP', 'Voters'],
+            categories: ['2016 Expected VEP', '2016 Expected Voters'],
         },
         y: {
             tick: {
@@ -567,9 +571,9 @@ function classify_state(dem_pct)
         }
       },
       tooltip: {
-      format: {
+        format: {
           value: format_pct,
-        }
+        },
       },
       color: {
         pattern: ["#e59076", "#621e15", "#128dcd", "#083c52", "#64c5f2", "#61afaf", "#0f7369", "#9c9da1"]
@@ -622,15 +626,24 @@ $('.adjustment-btn').on('click', function(e){
   e.preventDefault();
   var attr = $(this).data('attr');
   var group = $('.' + attr + '-adjustment-btn-group-select').val();
-  var adjustment = +$('.' + attr + '-adjustment-btn-amount-select').val();
+  var adjustment = +$('.' + attr + '-adjustment-btn-amount').val();
   if (attr == 'vote')
   {
     attr = 'dem_pct';
   }
-  make_adjustment('USA', group, attr, adjustment);
+  if (isNaN(adjustment) || adjustment <= 0 || adjustment >= 1)
+  {
+    sweetAlert("Error", "Please enter an adjustment number between 0 and 1.", "error");
+    return;
+  }
+  else
+  {
+      console.log(adjustment);
+      make_adjustment('USA', group, attr, adjustment);
+  }
 });
 
-$('.adjustment-btn-amount-select').on('change', function(){
+$('.adjustment-btn-amount').on('change', function(){
   var value = $(this).val();
   var label = (value >= 0 ? "+" : "") + value * 100 + "%";
   var attr = $(this).data('attr');
@@ -756,6 +769,68 @@ function color_is_dark(c)
 
   return (luma < 100)
 }
+
+function reset_group(group, state)
+{
+    var old_dem_pct = state_data[state][2012]['dem_pct'][group];
+    var old_turnout = state_data[state][2012]['turnout'][group];
+
+    // reset turnout
+    var $slider_group = $('.' + group + '-state-turnout-slider-container');
+    $slider_group.find('.turnout_pct_col span').html(format_pct(old_turnout));
+    update_state_pct(state, group, 'turnout', old_turnout);
+
+    // reset vote share
+    var old_rep_pct = 1 - old_dem_pct;
+    var $slider_group = $('.' + group + '-state-vote-slider-container');
+    $slider_group.find('.dem_pct_col span').html(format_pct(old_dem_pct));
+    $slider_group.find('.rep_pct_col span').html(format_pct(old_rep_pct));
+
+    update_state_pct(state, group, 'dem_pct', old_dem_pct);
+}
+
+$('.group-reset-btn').on('click', function(e){
+  e.preventDefault();
+  $this = $(this);
+  var group = $this.data('group');
+
+  if (current_state != 'USA')
+  {
+    reset_group(group, current_state);
+  }
+  else
+  {
+    state_abbrvs.forEach(function(state){
+      reset_group(group, state);
+    });
+  }
+
+  update_map();
+  update_tables();
+});
+
+$('.state-reset-btn').on('click', function(e){
+  e.preventDefault();
+  $this = $(this);
+
+  if (current_state != 'USA')
+  {
+    groups.forEach(function(group){
+      reset_group(group, current_state);
+    });
+  }
+  else
+  {
+    state_abbrvs.forEach(function(state){
+      groups.forEach(function(group){
+        reset_group(group, state);
+      });
+    });
+  }
+
+  update_map();
+  update_tables();
+});
 
 $(function(){
   update_map();

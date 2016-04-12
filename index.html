@@ -4,7 +4,9 @@
   <link rel="stylesheet" href="lib/ion-rangeSlider/css/ion.rangeSlider.skinFlat.css" />
   <link rel="stylesheet" href="lib/ion-rangeSlider/css/ion.rangeSlider.skinFlat.neutral.css" />
   <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css" />
   <link rel="stylesheet" href="lib/c3/c3.min.css" />
+  <link rel="stylesheet" href="lib/sweetalert/sweetalert.css" />
   <link rel="stylesheet" href="map.css" />
 
   <title>Electoral Map: 2016 Election by Demographic Group and State</title>
@@ -38,47 +40,27 @@
     </div>
 
     <svg width="960" height="600" id="statesvg"></svg>
+    <div class="state-group-sliders no-usa-trigger"></div>
     <div class="adjustment-btns no-usa-trigger">
     <div class="adjustment-btn-container">
     <select class="turnout-adjustment-btn-group-select adjustment-btn-group-select" data-attr="turnout">
       </select>
-      <select class="turnout-adjustment-btn-amount-select adjustment-btn-amount-select" data-attr="turnout">
-        <option value=".05">+5%</option>
-        <option value=".04">+4%</option>
-        <option value=".03">+3%</option>
-        <option value=".02">+2%</option>
-        <option value=".01" selected>+1%</option>
-        <option value="-.01">-1%</option>
-        <option value="-.02">-2%</option>
-        <option value="-.03">-3%</option>
-        <option value="-.04">-4%</option>
-        <option value="-.05">-5%</option>
-      </select>
+      <input value=".01" type="text" class="turnout-adjustment-btn-amount adjustment-btn-amount" data-attr="turnout" />
       <a href="#" class="btn btn-primary-outline turnout-adjustment-btn adjustment-btn" data-attr="turnout"><span class="turnout-adjustment-btn-group-label adjustment-btn-group-label" data-attr="turnout">White</span> Turnout <span class="turnout-adjustment-btn-amount-label adjustment-btn-amount-label" data-attr="turnout">+1%</span></a>
     </div>
 
     <div class="adjustment-btn-container">
     <select class="vote-adjustment-btn-group-select adjustment-btn-group-select" data-attr="vote">
       </select>
-      <select class="vote-adjustment-btn-amount-select adjustment-btn-amount-select" data-attr="vote">
-        <option value=".05">+5%</option>
-        <option value=".04">+4%</option>
-        <option value=".03">+3%</option>
-        <option value=".02">+2%</option>
-        <option value=".01" selected>+1%</option>
-        <option value="-.01">-1%</option>
-        <option value="-.02">-2%</option>
-        <option value="-.03">-3%</option>
-        <option value="-.04">-4%</option>
-        <option value="-.05">-5%</option>
-      </select>
-      <a href="#" class="btn btn-primary-outline vote-adjustment-btn adjustment-btn" data-attr="vote"><span class="vote-adjustment-btn-group-label adjustment-btn-group-label" data-attr="vote">White</span> Dem. Vote Pct. <span class="vote-adjustment-btn-amount-label adjustment-btn-amount-label" data-attr="vote">+1%</span></a>
+      <input value=".01" type="text" class="vote-adjustment-btn-amount adjustment-btn-amount" data-attr="vote" />
+      <a href="#" class="btn btn-primary-outline vote-adjustment-btn adjustment-btn" data-attr="vote"><span class="vote-adjustment-btn-group-label adjustment-btn-group-label" data-attr="vote">White</span> Dem. Vote % <span class="vote-adjustment-btn-amount-label adjustment-btn-amount-label" data-attr="vote">+1%</span></a>
     </div>
     </div>
   </div>
 
   <div class="col-lg-4 no-usa-trigger">
-    <h2 class="name">National</h2>
+    <table style="width:100%;"><tr><td><h2 class="name">National</h2></td><td style="text-align:right;"><h2><a href="#" class="btn btn-primary-outline state-reset-btn"><i class="icon-undo"></i></a></h2></td></tr></table>
+
     <div id="bar-chart"></div>
       <div class="state-info">
         <div class="state-info-body">
@@ -107,11 +89,9 @@
 
           <table class="table historical-table total-table">
             <tr><th></th><th>2000</th><th>2004</th><th>2008</th><th>2012</th><th>2016</th></tr>
-            <tr class="dem_pct_row"><td>Dem Pct.</td><td class="year_2000">51%</td><td class="year_2004">51%</td><td class="year_2008">52%</td><td class="year_2012">51%</td><td class="year_2016">52%</td></tr>
+            <tr class="dem_pct_row"><td>Dem %</td><td class="year_2000">51%</td><td class="year_2004">51%</td><td class="year_2008">52%</td><td class="year_2012">51%</td><td class="year_2016">52%</td></tr>
             <tr class="turnout_pct_row"><td>Turnout</td><td class="year_2000">51%</td><td class="year_2004">51%</td><td class="year_2008">52%</td><td class="year_2012">51%</td><td class="year_2016">52%</td></tr>
           </table>
-
-          <div class="state-group-sliders"></div>
 
         </div>
       </div>
@@ -126,8 +106,9 @@
 <script src="./lib/colorbrewer/colorbrewer.js"></script>
 <script src="./js/uStates.js"></script>
 <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="./lib/sweetalert/sweetalert.min.js"></script>
 <script src="./lib/ion-rangeSlider/js/ion.rangeSlider.min.js"></script>
-  <script src="map.js"></script>
+<script src="map.js"></script>
 
 </body>
 </html>

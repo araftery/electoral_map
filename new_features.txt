@@ -1,0 +1,23 @@
+New Features:
+[x] tenth of a decimal point
+[x] Reset button for state + nation
+[x] use text box
+[x] Change "VEP" to "2016 VEP" "voters" to "2016 expected voters"
+[x] Change "Dem pct" to "Dem %"
+[ ] Make label for buttons that are national
+[ ] add national btn
+[ ] Trigger error if NaN is entered into text boxes
+[ ] Add VEP numbers to tooltip box in graph
+
+go back to 2000 with exit poll data (if it exists)
+population growth based on census data
+
+ohio turnout hispanic is 95%
+try using census survey for turnout
+
+So: get # 2012 voters per group from census (https://www.census.gov/hhes/www/socdemo/voting/publications/p20/2012/tables.html)
+get denominator (VEP) from RCP (take their 2016 estimates and subtract the amount they added on)
+
+use census estimates to estimate per-state growth of VEP, not just adding a flat rate for each group (use growth rate of population as VEP growth rate from 2012)
+
+write reasoning (95% in ohio and 0% in wyoming)
