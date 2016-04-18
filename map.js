@@ -40,6 +40,12 @@ function visualize()
 // demographic groups to split by
 var groups = ['White', 'Black', 'Hispanic', 'Other']
 
+// clear state group sliders
+$('.state-group-sliders').html('');
+
+// clear bar chart
+$('#bar-chart').html('');
+
 function get_vote_pct(state_abbrv, year)
 {
   // returns object with democratic and republican voting percentage
@@ -830,6 +836,19 @@ $('.state-reset-btn').on('click', function(e){
 
   update_map();
   update_tables();
+});
+
+$('.dataset-choice').on('change', function(){
+  var url_nos = {
+    0: 'data/state_data.json',
+    1: 'data_v2/state_data_with_new_vep.json',
+  };
+  var url_no = Number($(this).val());
+  d3.json(url_nos[url_no], function(error, data) {
+    if (error) throw error;
+    state_data = data;
+    visualize();
+  });
 });
 
 $(function(){

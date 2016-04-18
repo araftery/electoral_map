@@ -1,0 +1,2 @@
+Sources: 
+2014 pop estimate: https://www.census.gov/popest/data/state/asrh/2014/SC-EST2014-ALLDATA6.html
