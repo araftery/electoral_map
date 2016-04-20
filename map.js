@@ -882,7 +882,11 @@ $('.dataset-choice').on('change', function(){
   d3.json(url_nos[url_no], function(error, data) {
     if (error) throw error;
     state_data = data;
-    visualize();
+    update_map();
+    update_total_pct_slider(current_state);
+    update_group_sliders(current_state);
+    update_bar_chart();
+    update_tables();
   });
 });
 
