@@ -164,6 +164,8 @@ d3.selectAll('.state').on('click', function(d){
   $('.name').html(d.n);
   current_state = d.id;
 
+  $('.adjustment-btn-container').hide();
+
   // update sliders
   update_group_sliders(current_state);
   update_total_pct_slider(current_state);
@@ -594,7 +596,46 @@ function classify_state(dem_pct)
 
   function update_bar_chart()
   {
-    var data = input_to_data(state_data[current_state]);
+    if (current_state == 'USA')
+    {
+      // update USA VEP/turnout data
+      var group_vep = {};
+      var group_voters = {};
+      
+      groups.forEach(function(group){
+        group_vep[group] = 0;
+        group_voters[group] = 0;
+      });
+
+      state_abbrvs.forEach(function(state){
+        groups.forEach(function(group){
+          group_vep[group] += state_data[state][2016]['VEP'][group];
+          group_voters[group] += state_data[state][2016]['VEP'][group] * state_data[state][2016]['turnout'][group];
+        });
+      });
+
+      var vep = []
+       groups.forEach(function(group){
+        vep.push(group_vep[group])
+       });
+
+       var total_vep = d3.sum(vep);
+       vep = vep.map(function(d) { return d / total_vep });
+
+       var voters = [];
+       groups.forEach(function(group){
+        voters.push(group_voters[group])
+       });
+
+       var total_voters = d3.sum(voters);
+       voters = voters.map(function(d) { return d / total_voters });
+
+       var data = [groups, vep, voters];
+    }
+    else
+    {
+      var data = input_to_data(state_data[current_state]);
+    }
     bar_chart.load({
       rows: data,
     });
@@ -611,6 +652,7 @@ $(document).click(function(event) {
 
         $('.name').html('National');
         current_state = 'USA';
+        $('.adjustment-btn-container').show();
 
         // update sliders
         update_total_pct_slider(current_state);
@@ -622,12 +664,6 @@ $(document).click(function(event) {
       }
 });
 
-groups.forEach(function(d){
-  $('.adjustment-btn-group-select').each(function(){
-    $(this).append('<option>' + d + '</option>');
-  });
-});
-
 $('.adjustment-btn').on('click', function(e){
   e.preventDefault();
   var attr = $(this).data('attr');
@@ -637,14 +673,13 @@ $('.adjustment-btn').on('click', function(e){
   {
     attr = 'dem_pct';
   }
-  if (isNaN(adjustment) || adjustment <= 0 || adjustment >= 1)
+  if (isNaN(adjustment) || adjustment <= -1 || adjustment >= 1)
   {
-    sweetAlert("Error", "Please enter an adjustment number between 0 and 1.", "error");
+    sweetAlert("Error", "Please enter an adjustment number between -1 and 1.", "error");
     return;
   }
   else
   {
-      console.log(adjustment);
       make_adjustment('USA', group, attr, adjustment);
   }
 });
@@ -857,6 +892,15 @@ $(function(){
   update_group_sliders(current_state);
   update_bar_chart();
   update_tables();
+
+  if (!$('.adjustment-btn-group-select option').length)
+  {
+    groups.forEach(function(d){
+      $('.adjustment-btn-group-select').each(function(){
+        $(this).append('<option>' + d + '</option>');
+      });
+    });
+  }
 
   $('.disabled-slider').each(function(){ $(this).data('ionRangeSlider').update({ disable: true }); });
 });

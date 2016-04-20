@@ -170,3 +170,8 @@
   {
     text-decoration: none;
   }
+
+  .adjustment-btn-amount
+  {
+    width: 40px;
+  }
