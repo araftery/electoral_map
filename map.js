@@ -8,6 +8,13 @@ var state_abbrvs = ["HI", "AK", "FL", "SC", "GA", "AL", "NC", "TN", "RI", "CT", 
 
 var state_electoral_votes = {"WA": 12, "DE": 3, "DC": 3, "WI": 10, "WV": 5, "HI": 4, "FL": 29, "WY": 3, "NH": 4, "NJ": 14, "NM": 5, "TX": 38, "LA": 8, "NC": 15, "ND": 3, "NE": 5, "TN": 11, "NY": 29, "PA": 20, "CA": 55, "NV": 6, "VA": 13, "CO": 9, "AK": 3, "AL": 9, "AR": 6, "VT": 3, "IL": 20, "GA": 16, "IN": 11, "IA": 6, "OK": 7, "AZ": 11, "ID": 4, "CT": 7, "ME": 4, "MD": 10, "MA": 11, "OH": 18, "UT": 6, "MO": 10, "MN": 10, "MI": 16, "RI": 4, "KS": 6, "MT": 3, "MS": 6, "SC": 9, "KY": 8, "OR": 7, "SD": 3};
 
+var group_titles = {
+  'White': 'Non-Hispanic White',
+  'Black': 'Non-Hispanic Black',
+  'Hispanic': 'Hispanic',
+  'Other': 'Non-Hispanic Other',
+}
+
 
 var current_state = "USA";
 var changing_state = true;
@@ -29,7 +36,7 @@ function format_pct(pct)
 
 
 var state_data;
-d3.json("data/state_data.json", function(error, data) {
+d3.json("data_v2/state_data_with_new_vep.json", function(error, data) {
     if (error) throw error;
     state_data = data;
     visualize();
@@ -382,7 +389,7 @@ function calculate_usa_total(year)
 function classify_state(dem_pct)
 {
   // change to .50 to .51 really light blue (no beige)
-  var strong_cutoff = .55;
+  var strong_cutoff = .54;
   var weak_cutoff = .51;
 
   if (dem_pct > strong_cutoff)
@@ -411,8 +418,10 @@ function classify_state(dem_pct)
     groups.forEach(function(group_name, i){
       var group = clean_group_name(group_name);
 
+      var group_title = group_titles[group_name];
+
       var html = "<div class='col-lg-6'>";
-      html += '<table style="width:100%;"><tr><td><h3>' + group + '</h3></td><td style="text-align:right;"><h3><a href="#" class="btn btn-primary-outline group-reset-btn" data-group="' + group + '"><i class="icon-undo"></i></a></h3></td></tr></table>';
+      html += '<table style="width:100%;"><tr><td><h3>' + group_title + '</h3></td><td style="text-align:right;"><h3><a href="#" class="btn btn-primary-outline group-reset-btn" data-group="' + group + '"><i class="icon-undo"></i></a></h3></td></tr></table>';
       html += '\
                     <div class="slider-container ' + group + '-state-vote-slider-container"> \
                     <table class="slider_table"> \

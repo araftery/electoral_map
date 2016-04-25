@@ -4,13 +4,13 @@ New Features:
 [x] use text box
 [x] Change "VEP" to "2016 VEP" "voters" to "2016 expected voters"
 [x] Change "Dem pct" to "Dem %"
-[ ] Make label for buttons that are national
+[x] Trigger error if NaN is entered into text boxes
+[x] Make label for buttons that are national
 [ ] add national btn
-[ ] Trigger error if NaN is entered into text boxes
 [ ] Add VEP numbers to tooltip box in graph
 
 go back to 2000 with exit poll data (if it exists)
-population growth based on census data
+[x] population growth based on census data
 
 ohio turnout hispanic is 95%
 try using census survey for turnout
